@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>3학년 3반 IOT</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>3-3 IoT</h2>
+        </div>
+        <div class="main">
+            <div>
+                <button onclick="spek_control('on')">스피커 켜기</button>
+            </div>
+                <text>여기서 켜짐은 스피커가 작동한다는 것입니다.</text>
+            <div>
+                <button onclick="spek_control('off')">스피커 끄기</button>
+            </div>
+        </div>
+        <div class="main">
+                
+        </div>
+        
+    </div>
+    <script>
+        
+        function spek_control(state)
+        {
+            fetch("/spek?state="+state)
+            .then(response=> { console.log(response); return response.text()})
+            .then(data=> {
+                console.log(data);
+                let result = document.querySelector("#result");
+                if(data=="ok"){
+                    result.innerHTML = "<h1>spek "+state+"</h1>";
+                }else{
+                    result.innerHTML = "<h1>error</h1>";
+                }
+            });
+        }
+        
+        
+    </script>
+</body>
+</html>
